@@ -1233,9 +1233,10 @@ class ReplicaManager(val config: KafkaConfig,
                                replicaId: Int,
                                fetchOffset: Long,
                                currentTimeMs: Long): Option[Int] = {
-    partition.leaderIdIfLocal.flatMap { leaderReplicaId =>
-      // Don't look up preferred for follower fetches via normal replication
-      if (Request.isValidBrokerId(replicaId))
+    partition.leaderReplicaIdOpt.flatMap { leaderReplicaId =>
+      // Don't look up preferred for follower fetches via normal replication and
+      // don't look up preferred read replica while fetch from follower replica
+      if (Request.isValidBrokerId(replicaId) || !partition.isLeader)
         None
       else {
         replicaSelectorOpt.flatMap { replicaSelector =>

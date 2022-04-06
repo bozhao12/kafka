@@ -1254,7 +1254,7 @@ class ReplicaManager(val config: KafkaConfig,
             replicaEndpoints.getOrElse(leaderReplicaId, Node.noNode()),
             partition.localLogOrException.logEndOffset, 0L)
           val replicaInfoSet = mutable.Set[ReplicaView]() ++= replicaInfos += leaderReplica
-
+          print("xx")
           val partitionInfo = new DefaultPartitionView(replicaInfoSet.asJava, leaderReplica)
           replicaSelector.select(partition.topicPartition, clientMetadata, partitionInfo).asScala.collect {
             // Even though the replica selector can return the leader, we don't want to send it out with the

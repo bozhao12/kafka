@@ -149,12 +149,15 @@ case class MetaProperties(
 }
 
 object BrokerMetadataCheckpoint extends Logging {
+  //获得logDir 的属性（正常下一个broker 只有一个）以及 没有meta.properties 的 logDir
   def getBrokerMetadataAndOfflineDirs(
     logDirs: collection.Seq[String],
     ignoreMissing: Boolean
   ): (RawMetaProperties, collection.Seq[String]) = {
     require(logDirs.nonEmpty, "Must have at least one log dir to read meta.properties")
 
+    //brokerMetadataMap 存储了broker 每个logDir 以及其对应的属性
+    //offlineDirs 不存在meta.properties 文件的 logDir
     val brokerMetadataMap = mutable.HashMap[String, Properties]()
     val offlineDirs = mutable.ArrayBuffer.empty[String]
 

@@ -73,6 +73,7 @@ class DelayedFetch(
     fetchPartitionStatus.foreach {
       case (topicIdPartition, fetchStatus) =>
         val fetchOffset = fetchStatus.startOffsetMetadata
+        // rpc 中携带的epoch
         val fetchLeaderEpoch = fetchStatus.fetchInfo.currentLeaderEpoch
         try {
           if (fetchOffset != LogOffsetMetadata.UnknownOffsetMetadata) {

@@ -316,6 +316,7 @@ class ReplicaManager(val config: KafkaConfig,
     logDirFailureHandler.start()
   }
 
+  //只有当这个broker 已经完全不负责这个topic后，才能够移除topic 的metric
   private def maybeRemoveTopicMetrics(topic: String): Unit = {
     val topicHasNonOfflinePartition = allPartitions.values.exists {
       case online: HostedPartition.Online => topic == online.partition.topic

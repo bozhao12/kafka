@@ -301,6 +301,7 @@ public class ClusterControlManager {
             .collect(Collectors.toSet());
     }
 
+    // broker 注册，没问题
     /**
      * Process an incoming broker registration request.
      */

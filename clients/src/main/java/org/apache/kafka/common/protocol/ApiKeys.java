@@ -100,7 +100,7 @@ public enum ApiKeys {
     ALTER_PARTITION(ApiMessageType.ALTER_PARTITION, true),
     UPDATE_FEATURES(ApiMessageType.UPDATE_FEATURES, true, true),
     ENVELOPE(ApiMessageType.ENVELOPE, true, RecordBatch.MAGIC_VALUE_V0, false),
-    FETCH_SNAPSHOT(ApiMessageType.FETCH_SNAPSHOT, false, RecordBatch.MAGIC_VALUE_V0, false),
+    FETCH_SNAPSHOT(ApiMessageType.FETCH_SNAPSHOT),
     DESCRIBE_CLUSTER(ApiMessageType.DESCRIBE_CLUSTER),
     DESCRIBE_PRODUCERS(ApiMessageType.DESCRIBE_PRODUCERS),
     BROKER_REGISTRATION(ApiMessageType.BROKER_REGISTRATION, true, RecordBatch.MAGIC_VALUE_V0, false),

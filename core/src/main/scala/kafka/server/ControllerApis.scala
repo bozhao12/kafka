@@ -595,6 +595,7 @@ class ControllerApis(val requestChannel: RequestChannel,
     }
   }
 
+  //没问题
   def handleBrokerRegistration(request: RequestChannel.Request): Unit = {
     val registrationRequest = request.body[BrokerRegistrationRequest]
     authHelper.authorizeClusterOperation(request, CLUSTER_ACTION)

@@ -237,7 +237,7 @@ class ReplicaManager(val config: KafkaConfig,
   this.logIdent = s"[ReplicaManager broker=$localBrokerId] "
   protected val stateChangeLogger = new StateChangeLogger(localBrokerId, inControllerContext = false, None)
 
-  private var logDirFailureHandler: LogDirFailureHandler = null
+  private var logDirFailureHandler: LogDirFailureHandler = _
 
   private class LogDirFailureHandler(name: String, haltBrokerOnDirFailure: Boolean) extends ShutdownableThread(name) {
     override def doWork(): Unit = {
@@ -926,16 +926,20 @@ class ReplicaManager(val config: KafkaConfig,
       brokerTopicStats.topicStats(topicPartition.topic).failedProduceRequestRate.mark()
       brokerTopicStats.allTopicsStats.failedProduceRequestRate.mark()
       error(s"Error processing append operation on partition $topicPartition", t)
-
       logStartOffset
     }
 
     if (traceEnabled)
       trace(s"Append [$entriesPerPartition] to local log")
 
+    val produceTopicSet = new mutable.HashSet[String]
     entriesPerPartition.map { case (topicPartition, records) =>
-      brokerTopicStats.topicStats(topicPartition.topic).totalProduceRequestRate.mark()
-      brokerTopicStats.allTopicsStats.totalProduceRequestRate.mark()
+      val appendTopic = topicPartition.topic()
+      if (!produceTopicSet.contains(appendTopic)) {
+        brokerTopicStats.topicStats(appendTopic).totalProduceRequestRate.mark()
+        brokerTopicStats.allTopicsStats.totalProduceRequestRate.mark()
+        produceTopicSet.add(appendTopic)
+      }
 
       // reject appending to internal topics if it is not allowed
       if (Topic.isInternal(topicPartition.topic) && !internalTopicsAllowed) {

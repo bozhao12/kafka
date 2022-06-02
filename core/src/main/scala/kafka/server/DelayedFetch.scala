@@ -111,7 +111,7 @@ class DelayedFetch(
 
             // Case H: If truncation has caused diverging epoch while this request was in purgatory, return to trigger truncation
             fetchStatus.fetchInfo.lastFetchedEpoch.ifPresent { fetchEpoch =>
-              val epochEndOffset = partition.lastOffsetForLeaderEpoch(fetchLeaderEpoch, fetchEpoch, fetchOnlyFromLeader = false)
+              val epochEndOffset = partition.lastOffsetForLeaderEpoch(fetchLeaderEpoch, fetchEpoch, fetchOnlyFromLeader = params.fetchOnlyLeader)
               if (epochEndOffset.errorCode != Errors.NONE.code()
                   || epochEndOffset.endOffset == UNDEFINED_EPOCH_OFFSET
                   || epochEndOffset.leaderEpoch == UNDEFINED_EPOCH) {

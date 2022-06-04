@@ -29,7 +29,6 @@ import kafka.utils.TestUtils
 import kafka.cluster.Broker
 import kafka.controller.{ControllerChannelManager, ControllerContext, StateChangeLogger}
 import kafka.utils.TestUtils._
-import kafka.server.QuorumTestHarness
 import org.apache.kafka.common.message.LeaderAndIsrRequestData.LeaderAndIsrPartitionState
 import org.apache.kafka.common.metrics.Metrics
 import org.apache.kafka.common.network.ListenerName

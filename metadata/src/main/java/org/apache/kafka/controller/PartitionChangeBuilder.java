@@ -198,7 +198,7 @@ public class PartitionChangeBuilder {
         if (election == Election.UNCLEAN) {
             // Attempt unclean leader election
             Optional<Integer> uncleanLeader = targetReplicas.stream()
-                .filter(replica -> isAcceptableLeader.apply(replica))
+                .filter(isAcceptableLeader::apply)
                 .findFirst();
             if (uncleanLeader.isPresent()) {
                 return new ElectionResult(uncleanLeader.get(), true);

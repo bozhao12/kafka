@@ -1125,7 +1125,7 @@ public final class RaftClientTestContext {
             return commits.stream()
                 .filter(batch -> batch.lastOffset() == lastOffset)
                 .findFirst()
-                .map(batch -> batch.records())
+                .map(Batch::records)
                 .orElse(null);
         }
 

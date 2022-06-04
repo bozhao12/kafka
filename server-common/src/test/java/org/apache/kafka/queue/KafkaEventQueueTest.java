@@ -136,7 +136,7 @@ public class KafkaEventQueueTest {
         assertEquals(Integer.valueOf(4), future4.get());
         assertEquals(TimeoutException.class,
             assertThrows(ExecutionException.class,
-                () -> future3.get()).getCause().getClass());
+                    future3::get).getCause().getClass());
         queue.close();
         assertEquals(3, numEventsExecuted.get());
     }
@@ -191,11 +191,11 @@ public class KafkaEventQueueTest {
             "testDeferredIsQueuedAfterTriggering");
         AtomicInteger count = new AtomicInteger(0);
         List<CompletableFuture<Integer>> futures = Arrays.asList(
-                new CompletableFuture<Integer>(),
-                new CompletableFuture<Integer>(),
-                new CompletableFuture<Integer>());
+                new CompletableFuture<>(),
+                new CompletableFuture<>(),
+                new CompletableFuture<>());
         queue.scheduleDeferred("foo", __ -> OptionalLong.of(2L),
-            new FutureEvent<>(futures.get(0), () -> count.getAndIncrement()));
+            new FutureEvent<>(futures.get(0), count::getAndIncrement));
         queue.append(new FutureEvent<>(futures.get(1), () -> count.getAndAdd(1)));
         assertEquals(Integer.valueOf(0), futures.get(1).get());
         time.sleep(1);
@@ -215,15 +215,15 @@ public class KafkaEventQueueTest {
             __ -> OptionalLong.of(Time.SYSTEM.nanoseconds() + TimeUnit.HOURS.toNanos(1)),
             new FutureEvent<>(future, () -> count.getAndAdd(1)));
         queue.beginShutdown("testShutdownBeforeDeferred");
-        assertThrows(ExecutionException.class, () -> future.get());
+        assertThrows(ExecutionException.class, future::get);
         assertEquals(0, count.get());
         queue.close();
     }
 
     @Test
-    public void testRejectedExecutionExecption() throws Exception {
+    public void testRejectedExecutionException() throws Exception {
         KafkaEventQueue queue = new KafkaEventQueue(Time.SYSTEM, new LogContext(),
-            "testRejectedExecutionExecption");
+            "testRejectedExecutionException");
         queue.close();
         CompletableFuture<Void> future = new CompletableFuture<>();
         queue.append(new EventQueue.Event() {
@@ -238,6 +238,6 @@ public class KafkaEventQueueTest {
                 }
             });
         assertEquals(RejectedExecutionException.class, assertThrows(
-            ExecutionException.class, () -> future.get()).getCause().getClass());
+            ExecutionException.class, future::get).getCause().getClass());
     }
 }

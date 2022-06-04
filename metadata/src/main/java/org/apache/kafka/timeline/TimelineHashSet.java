@@ -231,9 +231,8 @@ public class TimelineHashSet<T>
     @Override
     public int hashCode() {
         int hash = 0;
-        Iterator<T> iter = iterator();
-        while (iter.hasNext()) {
-            hash += iter.next().hashCode();
+        for (T t : this) {
+            hash += t.hashCode();
         }
         return hash;
     }

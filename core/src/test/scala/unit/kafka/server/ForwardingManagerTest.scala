@@ -73,7 +73,7 @@ class ForwardingManagerTest {
 
     Mockito.when(controllerNodeProvider.get()).thenReturn(Some(new Node(0, "host", 1234)))
     val isEnvelopeRequest: RequestMatcher = request => request.isInstanceOf[EnvelopeRequest]
-    client.prepareResponse(isEnvelopeRequest, new EnvelopeResponse(responseBuffer, Errors.NONE));
+    client.prepareResponse(isEnvelopeRequest, new EnvelopeResponse(responseBuffer, Errors.NONE))
 
     val responseOpt = new AtomicReference[Option[AbstractResponse]]()
     forwardingManager.forwardRequest(request, responseOpt.set)
@@ -97,7 +97,7 @@ class ForwardingManagerTest {
 
     Mockito.when(controllerNodeProvider.get()).thenReturn(Some(new Node(0, "host", 1234)))
     val isEnvelopeRequest: RequestMatcher = request => request.isInstanceOf[EnvelopeRequest]
-    client.prepareResponse(isEnvelopeRequest, new EnvelopeResponse(responseBuffer, Errors.UNSUPPORTED_VERSION));
+    client.prepareResponse(isEnvelopeRequest, new EnvelopeResponse(responseBuffer, Errors.UNSUPPORTED_VERSION))
 
     val responseOpt = new AtomicReference[Option[AbstractResponse]]()
     forwardingManager.forwardRequest(request, responseOpt.set)

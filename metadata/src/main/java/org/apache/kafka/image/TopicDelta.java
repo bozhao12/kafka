@@ -122,9 +122,7 @@ public final class TopicDelta {
                         new LocalReplicaChanges.PartitionInfo(id(), entry.getValue())
                     );
                 }
-            } else if (
-                entry.getValue().leader != brokerId &&
-                Replicas.contains(entry.getValue().replicas, brokerId)
+            } else if (Replicas.contains(entry.getValue().replicas, brokerId)
             ) {
                 PartitionRegistration prevPartition = image.partitions().get(entry.getKey());
                 if (prevPartition == null || prevPartition.partitionEpoch != entry.getValue().partitionEpoch) {

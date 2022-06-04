@@ -129,7 +129,8 @@ public class QuorumControllerTest {
             LocalLogManagerTestEnv logEnv = new LocalLogManagerTestEnv(1, Optional.empty());
             QuorumControllerTestEnv controlEnv =
                 new QuorumControllerTestEnv(logEnv, builder -> builder.setMetrics(metrics))
-        ) {
+        )//TODO --这里应该写点啥
+        {
         }
         assertTrue(metrics.isClosed(), "metrics were not closed");
     }
@@ -141,9 +142,7 @@ public class QuorumControllerTest {
     public void testConfigurationOperations() throws Throwable {
         try (
             LocalLogManagerTestEnv logEnv = new LocalLogManagerTestEnv(1, Optional.empty());
-            QuorumControllerTestEnv controlEnv = new QuorumControllerTestEnv(logEnv, b -> {
-                b.setConfigSchema(SCHEMA);
-            })
+            QuorumControllerTestEnv controlEnv = new QuorumControllerTestEnv(logEnv, b -> b.setConfigSchema(SCHEMA))
         ) {
             controlEnv.activeController().registerBroker(ANONYMOUS_CONTEXT,
                 new BrokerRegistrationRequestData().
@@ -177,9 +176,7 @@ public class QuorumControllerTest {
     public void testDelayedConfigurationOperations() throws Throwable {
         try (
             LocalLogManagerTestEnv logEnv = new LocalLogManagerTestEnv(1, Optional.empty());
-            QuorumControllerTestEnv controlEnv = new QuorumControllerTestEnv(logEnv, b -> {
-                b.setConfigSchema(SCHEMA);
-            })
+            QuorumControllerTestEnv controlEnv = new QuorumControllerTestEnv(logEnv, b -> b.setConfigSchema(SCHEMA))
         ) {
             controlEnv.activeController().registerBroker(ANONYMOUS_CONTEXT,
                 new BrokerRegistrationRequestData().
@@ -440,7 +437,7 @@ public class QuorumControllerTest {
                     builder.setConfigSchema(SCHEMA)
                         .setMaxIdleIntervalNs(OptionalLong.of(maxIdleIntervalNs));
                 }
-            );
+            )
         ) {
             ListenerCollection listeners = new ListenerCollection();
             listeners.add(new Listener().setName("PLAINTEXT").setHost("localhost").setPort(9092));
@@ -554,7 +551,7 @@ public class QuorumControllerTest {
     public void testSnapshotSaveAndLoad() throws Throwable {
         final int numBrokers = 4;
         Map<Integer, Long> brokerEpochs = new HashMap<>();
-        RawSnapshotReader reader = null;
+        RawSnapshotReader reader;
         Uuid fooId;
         try (LocalLogManagerTestEnv logEnv = new LocalLogManagerTestEnv(3, Optional.empty())) {
             try (QuorumControllerTestEnv controlEnv = new QuorumControllerTestEnv(logEnv, b -> {

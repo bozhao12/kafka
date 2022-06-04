@@ -83,9 +83,8 @@ object StressTestLog {
         while(running.get)
           work()
       } catch {
-        case e: Exception => {
+        case e: Exception =>
           e.printStackTrace()
-        }
       } finally {
         running.set(false)
       }

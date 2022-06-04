@@ -1780,12 +1780,10 @@ public class KafkaRaftClient<T> implements RaftClient<T> {
     }
 
     private FetchRequestData buildFetchRequest() {
-        FetchRequestData request = RaftUtil.singletonFetchRequest(log.topicPartition(), log.topicId(), fetchPartition -> {
-            fetchPartition
-                .setCurrentLeaderEpoch(quorum.epoch())
-                .setLastFetchedEpoch(log.lastFetchedEpoch())
-                .setFetchOffset(log.endOffset().offset);
-        });
+        FetchRequestData request = RaftUtil.singletonFetchRequest(log.topicPartition(), log.topicId(), fetchPartition -> fetchPartition
+            .setCurrentLeaderEpoch(quorum.epoch())
+            .setLastFetchedEpoch(log.lastFetchedEpoch())
+            .setFetchOffset(log.endOffset().offset));
         return request
             .setMaxBytes(MAX_FETCH_SIZE_BYTES)
             .setMaxWaitMs(fetchMaxWaitMs)
@@ -1814,12 +1812,10 @@ public class KafkaRaftClient<T> implements RaftClient<T> {
         FetchSnapshotRequestData request = FetchSnapshotRequest.singleton(
             clusterId,
             log.topicPartition(),
-            snapshotPartition -> {
-                return snapshotPartition
-                    .setCurrentLeaderEpoch(quorum.epoch())
-                    .setSnapshotId(requestSnapshotId)
-                    .setPosition(snapshotSize);
-            }
+            snapshotPartition -> snapshotPartition
+                .setCurrentLeaderEpoch(quorum.epoch())
+                .setSnapshotId(requestSnapshotId)
+                .setPosition(snapshotSize)
         );
 
         return request.setReplicaId(quorum.localIdOrSentinel());
@@ -1865,9 +1861,7 @@ public class KafkaRaftClient<T> implements RaftClient<T> {
                     double elapsedTimePerRecord = (double) elapsedTime / batch.numRecords;
                     kafkaRaftMetrics.updateCommitLatency(elapsedTimePerRecord, appendTimeMs);
                     logger.debug("Completed commit of {} records at {}", batch.numRecords, offsetAndEpoch);
-                    batch.records.ifPresent(records -> {
-                        maybeFireHandleCommit(batch.baseOffset, epoch, batch.appendTimestamp(), batch.sizeInBytes(), records);
-                    });
+                    batch.records.ifPresent(records -> maybeFireHandleCommit(batch.baseOffset, epoch, batch.appendTimestamp(), batch.sizeInBytes(), records));
                 }
             });
         } finally {
@@ -2131,9 +2125,7 @@ public class KafkaRaftClient<T> implements RaftClient<T> {
         }
 
         // Check listener progress to see if reads are expected
-        quorum.highWatermark().ifPresent(highWatermarkMetadata -> {
-            updateListenersProgress(highWatermarkMetadata.offset);
-        });
+        quorum.highWatermark().ifPresent(highWatermarkMetadata -> updateListenersProgress(highWatermarkMetadata.offset));
     }
 
     private void processRegistration(Registration<T> registration) {

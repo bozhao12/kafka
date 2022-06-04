@@ -56,7 +56,7 @@ class ControllerConfigurationValidator extends ConfigurationValidator {
   private def validateBrokerName(
     name: String
   ): Unit = {
-    if (!name.isEmpty()) {
+    if (name.nonEmpty) {
       val brokerId = try {
         Integer.valueOf(name)
       } catch {

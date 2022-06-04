@@ -498,7 +498,7 @@ class RequestQuotaTest extends BaseRequestTest {
           dir.topics.add(new AlterReplicaLogDirsRequestData.AlterReplicaLogDirTopic()
             .setName(tp.topic)
             .setPartitions(Collections.singletonList(tp.partition)))
-          val data = new AlterReplicaLogDirsRequestData();
+          val data = new AlterReplicaLogDirsRequestData()
           data.dirs.add(dir)
           new AlterReplicaLogDirsRequest.Builder(data)
 

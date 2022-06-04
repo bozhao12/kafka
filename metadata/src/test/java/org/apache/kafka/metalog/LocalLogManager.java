@@ -99,8 +99,7 @@ public final class LocalLogManager implements RaftClient<ApiMessageAndVersion>, 
         public boolean equals(Object o) {
             if (!(o instanceof LeaderChangeBatch)) return false;
             LeaderChangeBatch other = (LeaderChangeBatch) o;
-            if (!other.newLeader.equals(newLeader)) return false;
-            return true;
+            return other.newLeader.equals(newLeader);
         }
 
         @Override
@@ -318,7 +317,7 @@ public final class LocalLogManager implements RaftClient<ApiMessageAndVersion>, 
         }
 
         /**
-         * Returns the snapshot whos last offset is the committed offset.
+         * Returns the snapshot whose last offset is the committed offset.
          *
          * If such snapshot doesn't exists, it waits until it does.
          */
@@ -447,7 +446,7 @@ public final class LocalLogManager implements RaftClient<ApiMessageAndVersion>, 
      * An offset that the log manager will not read beyond. This exists only for testing
      * purposes.
      */
-    private long maxReadOffset = Long.MAX_VALUE;
+    private long maxReadOffset;
 
     /**
      * The listener objects attached to this local log manager.

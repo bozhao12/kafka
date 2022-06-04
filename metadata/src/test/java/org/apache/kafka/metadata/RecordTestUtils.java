@@ -67,14 +67,10 @@ public class RecordTestUtils {
                     method.invoke(target, record, Optional.empty());
                 } catch (NoSuchMethodException t) {
                     // ignore
-                } catch (InvocationTargetException t) {
-                    throw new RuntimeException(t);
-                } catch (IllegalAccessException t) {
+                } catch (InvocationTargetException | IllegalAccessException t) {
                     throw new RuntimeException(t);
                 }
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
+            } catch (InvocationTargetException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }

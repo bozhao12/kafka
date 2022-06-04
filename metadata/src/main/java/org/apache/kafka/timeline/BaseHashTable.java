@@ -180,7 +180,7 @@ class BaseHashTable<T> {
     /**
      * Expand the hash table to a new size.  Existing elements will be copied to new slots.
      */
-    final private void rehash(int newSize) {
+    private void rehash(int newSize) {
         Object[] prevElements = elements;
         elements = new Object[newSize];
         List<Object> ready = new ArrayList<>();

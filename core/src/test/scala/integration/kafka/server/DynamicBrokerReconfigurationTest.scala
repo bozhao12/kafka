@@ -853,8 +853,8 @@ class DynamicBrokerReconfigurationTest extends QuorumTestHarness with SaslSetup 
 
     assertEquals(2, kafkaMetrics.size) // 2 listeners
     // 2 threads per listener
-    assertEquals(2, kafkaMetrics.get("INTERNAL").get.groupBy(_.tags().get(Processor.NetworkProcessorMetricTag)).size)
-    assertEquals(2, kafkaMetrics.get("EXTERNAL").get.groupBy(_.tags().get(Processor.NetworkProcessorMetricTag)).size)
+    assertEquals(2, kafkaMetrics("INTERNAL").groupBy(_.tags().get(Processor.NetworkProcessorMetricTag)).size)
+    assertEquals(2, kafkaMetrics("EXTERNAL").groupBy(_.tags().get(Processor.NetworkProcessorMetricTag)).size)
 
     KafkaYammerMetrics.defaultRegistry.allMetrics.keySet.asScala
       .filter(isProcessorMetric)

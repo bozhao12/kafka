@@ -275,9 +275,9 @@ class AbstractFetcherManagerTest {
 
   private def makeTopicPartition(topicNum: Int, partitionNum: Int, topicPrefix: String = "topic_"): Set[TopicPartition] = {
     val res = mutable.Set[TopicPartition]()
-    for (i <- 0 to topicNum - 1) {
+    for (i <- 0 until topicNum) {
       val topic = topicPrefix + i
-      for (j <- 0 to partitionNum - 1) {
+      for (j <- 0 until partitionNum) {
         res += new TopicPartition(topic, j)
       }
     }

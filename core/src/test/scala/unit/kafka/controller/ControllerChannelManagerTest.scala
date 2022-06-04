@@ -75,7 +75,7 @@ class ControllerChannelManagerTest {
     assertEquals(1, updateMetadataRequests.size)
 
     val leaderAndIsrRequest = leaderAndIsrRequests.head
-    val topicIds = leaderAndIsrRequest.topicIds();
+    val topicIds = leaderAndIsrRequest.topicIds()
     val topicNames = topicIds.asScala.map { case (k, v) => (v, k) }
     assertEquals(controllerId, leaderAndIsrRequest.controllerId)
     assertEquals(controllerEpoch, leaderAndIsrRequest.controllerEpoch)
@@ -95,7 +95,7 @@ class ControllerChannelManagerTest {
       leaderAndIsrResponse.topics.asScala.flatMap(t => t.partitionErrors.asScala.map(p =>
         new TopicPartition(topicNames(t.topicId), p.partitionIndex))).toSet)
     leaderAndIsrResponse.topics.forEach(topic =>
-      assertEquals(topicIds.get(topicNames.get(topic.topicId).get), topic.topicId))
+      assertEquals(topicIds.get(topicNames(topic.topicId)), topic.topicId))
   }
 
   @Test

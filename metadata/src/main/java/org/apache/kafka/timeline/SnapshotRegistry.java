@@ -169,7 +169,7 @@ public class SnapshotRegistry {
         Snapshot snapshot = snapshots.get(epoch);
         if (snapshot == null) {
             throw new RuntimeException("No snapshot for epoch " + epoch + ". Snapshot " +
-                "epochs are: " + epochsList().stream().map(e -> e.toString()).
+                "epochs are: " + epochsList().stream().map(Object::toString).
                     collect(Collectors.joining(", ")));
         }
         return snapshot;

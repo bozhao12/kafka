@@ -822,7 +822,7 @@ class TransactionStateManagerTest {
     transactionManager.loadTransactionsForTxnTopicPartition(partitionId, coordinatorEpoch = 1, (_, _, _, _) => ())
     assertEquals(0, transactionManager.loadingPartitions.size)
     assertTrue(transactionManager.transactionMetadataCache.contains(partitionId))
-    assertEquals(1, transactionManager.transactionMetadataCache.get(partitionId).get.coordinatorEpoch)
+    assertEquals(1, transactionManager.transactionMetadataCache(partitionId).coordinatorEpoch)
   }
 
   @Test

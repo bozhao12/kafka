@@ -70,7 +70,7 @@ object ConfigEntityName {
  *
  * This will fire a watcher on all brokers. This watcher works as follows. It reads all the config change notifications.
  * It keeps track of the highest config change suffix number it has applied previously. For any previously applied change it finds
- * it checks if this notification is larger than a static expiration time (say 10mins) and if so it deletes this notification.
+ * it checks if this notification is larger than a static expiration time (say 10 mins) and if so it deletes this notification.
  * For any new changes it reads the new configuration, combines it with the defaults, and updates the existing config.
  *
  * Note that config is always read from the config path in zk, the notification is just a trigger to do so. So if a broker is

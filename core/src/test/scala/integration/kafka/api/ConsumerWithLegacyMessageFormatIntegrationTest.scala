@@ -69,7 +69,7 @@ class ConsumerWithLegacyMessageFormatIntegrationTest extends AbstractConsumerTes
     }
     // The timestampToSearch map should contain:
     // (topic1Partition0 -> 0,
-    //  topic1Partitoin1 -> 20,
+    //  topic1Partition1 -> 20,
     //  topic2Partition0 -> 40,
     //  topic2Partition1 -> 60,
     //  topic3Partition0 -> 80,

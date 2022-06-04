@@ -406,10 +406,10 @@ public class ClusterControlManager {
         BrokerRegistration registration = brokerRegistrations.get(brokerId);
         if (registration == null) {
             throw new RuntimeException(String.format("Unable to replay %s: no broker " +
-                "registration found for that id", record.toString()));
+                "registration found for that id", record));
         } else if (registration.epoch() != record.brokerEpoch()) {
             throw new RuntimeException(String.format("Unable to replay %s: no broker " +
-                "registration with that epoch found", record.toString()));
+                "registration with that epoch found", record));
         } else {
             if (heartbeatManager != null) heartbeatManager.remove(brokerId);
             brokerRegistrations.remove(brokerId);

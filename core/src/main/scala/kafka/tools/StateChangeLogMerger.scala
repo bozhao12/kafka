@@ -89,7 +89,7 @@ object StateChangeLogMerger extends Logging {
                               .defaultsTo("9999-12-31 23:59:59,999")
                               
     if(args.length == 0)
-      CommandLineUtils.printUsageAndDie(parser, "A tool for merging the log files from several brokers to reconnstruct a unified history of what happened.")
+      CommandLineUtils.printUsageAndDie(parser, "A tool for merging the log files from several brokers to reconstruct a unified history of what happened.")
 
 
     val options = parser.parse(args : _*)

@@ -252,7 +252,7 @@ abstract class BaseAdminIntegrationTest extends IntegrationTestHarness with Logg
       val topicResult = client.describeTopics(Set(topic).asJava, describeOptions).topicNameValues().get(topic)
       try {
         result = topicResult.get
-        expectedNumPartitionsOpt.map(_ == result.partitions.size).getOrElse(true)
+        expectedNumPartitionsOpt.forall(_ == result.partitions.size)
       } catch {
         case e: ExecutionException if e.getCause.isInstanceOf[UnknownTopicOrPartitionException] => false  // metadata may not have propagated yet, so retry
       }

@@ -43,7 +43,7 @@ class ConfigHelper(metadataCache: MetadataCache, config: KafkaConfig, configRepo
   def describeConfigs(resourceToConfigNames: List[DescribeConfigsResource],
                       includeSynonyms: Boolean,
                       includeDocumentation: Boolean): List[DescribeConfigsResponseData.DescribeConfigsResult] = {
-    resourceToConfigNames.map { case resource =>
+    resourceToConfigNames.map { resource =>
 
       def createResponseConfig(configs: Map[String, Any],
                                createConfigEntry: (String, Any) => DescribeConfigsResponseData.DescribeConfigsResourceResult): DescribeConfigsResponseData.DescribeConfigsResult = {

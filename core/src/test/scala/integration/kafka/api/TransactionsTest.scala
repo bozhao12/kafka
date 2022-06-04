@@ -452,9 +452,9 @@ class TransactionsTest extends IntegrationTestHarness {
   @ParameterizedTest(name = TestInfoUtils.TestWithParameterizedQuorumName)
   @ValueSource(strings = Array("zk", "kraft"))
   def testFencingOnSend(quorum: String): Unit = {
-    val producer1 = transactionalProducers(0)
+    val producer1 = transactionalProducers.head
     val producer2 = transactionalProducers(1)
-    val consumer = transactionalConsumers(0)
+    val consumer = transactionalConsumers.head
 
     consumer.subscribe(List(topic1, topic2).asJava)
 
@@ -497,9 +497,9 @@ class TransactionsTest extends IntegrationTestHarness {
   @ParameterizedTest(name = TestInfoUtils.TestWithParameterizedQuorumName)
   @ValueSource(strings = Array("zk", "kraft"))
   def testFencingOnAddPartitions(quorum: String): Unit = {
-    val producer1 = transactionalProducers(0)
+    val producer1 = transactionalProducers.head
     val producer2 = transactionalProducers(1)
-    val consumer = transactionalConsumers(0)
+    val consumer = transactionalConsumers.head
 
     consumer.subscribe(List(topic1, topic2).asJava)
 

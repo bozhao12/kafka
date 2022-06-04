@@ -2193,7 +2193,7 @@ public class ReplicationControlManagerTest {
             new int[]{2, 3, 4}, new int[]{3, 4, 2}}).topicId();
         KRaftClusterDescriber describer = replication.clusterDescriber;
         HashSet<UsableBroker> brokers = new HashSet<>();
-        describer.usableBrokers().forEachRemaining(broker -> brokers.add(broker));
+        describer.usableBrokers().forEachRemaining(brokers::add);
         assertEquals(new HashSet<>(Arrays.asList(
             new UsableBroker(0, Optional.empty(), true),
             new UsableBroker(1, Optional.empty(), true),

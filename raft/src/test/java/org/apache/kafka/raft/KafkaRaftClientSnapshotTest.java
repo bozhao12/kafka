@@ -1643,12 +1643,10 @@ final public class KafkaRaftClientSnapshotTest {
         FetchSnapshotRequestData request = FetchSnapshotRequest.singleton(
             clusterId,
             topicPartition,
-            snapshotPartition -> {
-                return snapshotPartition
-                    .setCurrentLeaderEpoch(epoch)
-                    .setSnapshotId(snapshotId)
-                    .setPosition(position);
-            }
+            snapshotPartition -> snapshotPartition
+                .setCurrentLeaderEpoch(epoch)
+                .setSnapshotId(snapshotId)
+                .setPosition(position)
         );
 
         return request.setMaxBytes(maxBytes);

@@ -21,7 +21,6 @@ import java.util
 import java.util.concurrent.atomic.AtomicReference
 
 import kafka.utils.{CoreUtils, TestUtils}
-import kafka.server.QuorumTestHarness
 import org.apache.kafka.common.metrics.{KafkaMetric, MetricsContext, MetricsReporter}
 import org.junit.jupiter.api.Assertions.{assertEquals}
 import org.junit.jupiter.api.{AfterEach, BeforeEach, Test, TestInfo}

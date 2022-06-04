@@ -44,10 +44,7 @@ import static org.apache.kafka.common.metadata.MetadataRecordType.PARTITION_CHAN
 import static org.apache.kafka.common.metadata.MetadataRecordType.PARTITION_RECORD;
 import static org.apache.kafka.common.metadata.MetadataRecordType.REMOVE_TOPIC_RECORD;
 import static org.apache.kafka.common.metadata.MetadataRecordType.TOPIC_RECORD;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @Timeout(value = 40)
@@ -394,7 +391,7 @@ public class TopicsImageTest {
         assertTrue(map.containsKey("bar"));
         assertEquals(BAR_UUID, map.get("bar"));
         assertFalse(map.containsKey("baz"));
-        assertEquals(null, map.get("baz"));
+        assertNull(map.get("baz"));
         HashSet<Uuid> uuids = new HashSet<>();
         map.values().iterator().forEachRemaining(u -> uuids.add(u));
         HashSet<Uuid> expectedUuids = new HashSet<>(Arrays.asList(
@@ -413,7 +410,7 @@ public class TopicsImageTest {
         assertTrue(map.containsKey(BAR_UUID));
         assertEquals("bar", map.get(BAR_UUID));
         assertFalse(map.containsKey(BAZ_UUID));
-        assertEquals(null, map.get(BAZ_UUID));
+        assertNull(map.get(BAZ_UUID));
         HashSet<String> names = new HashSet<>();
         map.values().iterator().forEachRemaining(n -> names.add(n));
         HashSet<String> expectedNames = new HashSet<>(Arrays.asList("foo", "bar"));

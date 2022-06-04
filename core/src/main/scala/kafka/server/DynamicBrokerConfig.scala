@@ -757,6 +757,7 @@ class DynamicMetricsReporters(brokerId: Int, config: KafkaConfig, metrics: Metri
 
   private def removeReporter(className: String): Unit = reporterState.removeReporter(className)
 
+
   override def configure(configs: util.Map[String, _]): Unit = {}
 
   override def reconfigurableConfigs(): util.Set[String] = {

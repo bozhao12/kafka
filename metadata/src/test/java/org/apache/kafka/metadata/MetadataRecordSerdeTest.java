@@ -73,7 +73,7 @@ class MetadataRecordSerdeTest {
     }
 
     /**
-     * Test attempting to parse an event which has a malformed frame version type varint.
+     * Test attempting to parse an event which has a malformed frame version type variant.
      */
     @Test
     public void testParsingMalformedFrameVersionVarint() {

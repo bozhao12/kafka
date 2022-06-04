@@ -80,7 +80,6 @@ object FetchDataInfo {
     FetchDataInfo(
       fetchOffsetMetadata = LogOffsetMetadata(fetchOffset),
       records = MemoryRecords.EMPTY,
-      firstEntryIncomplete = false,
       abortedTransactions = None
     )
   }

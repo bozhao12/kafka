@@ -50,7 +50,7 @@ public final class ClusterDelta {
 
     public BrokerRegistration broker(int nodeId) {
         Optional<BrokerRegistration> result = changedBrokers.get(nodeId);
-        if (result != null) {
+        if (result.isPresent()) {
             return result.orElse(null);
         }
         return image.broker(nodeId);
@@ -132,19 +132,15 @@ public final class ClusterDelta {
         for (Entry<Integer, BrokerRegistration> entry : image.brokers().entrySet()) {
             int nodeId = entry.getKey();
             Optional<BrokerRegistration> change = changedBrokers.get(nodeId);
-            if (change == null) {
+            if (!change.isPresent()) {
                 newBrokers.put(nodeId, entry.getValue());
-            } else if (change.isPresent()) {
-                newBrokers.put(nodeId, change.get());
-            }
+            } else change.ifPresent(brokerRegistration -> newBrokers.put(nodeId, brokerRegistration));
         }
         for (Entry<Integer, Optional<BrokerRegistration>> entry : changedBrokers.entrySet()) {
             int nodeId = entry.getKey();
             Optional<BrokerRegistration> brokerRegistration = entry.getValue();
             if (!newBrokers.containsKey(nodeId)) {
-                if (brokerRegistration.isPresent()) {
-                    newBrokers.put(nodeId, brokerRegistration.get());
-                }
+                brokerRegistration.ifPresent(registration -> newBrokers.put(nodeId, registration));
             }
         }
         return new ClusterImage(newBrokers);

@@ -95,12 +95,7 @@ public class StripedReplicaPlacerTest {
         PlacementSpec placementSpec = new PlacementSpec(startPartition,
             numPartitions,
             replicationFactor);
-        ClusterDescriber cluster = new ClusterDescriber() {
-            @Override
-            public Iterator<UsableBroker> usableBrokers() {
-                return brokers.iterator();
-            }
-        };
+        ClusterDescriber cluster = () -> brokers.iterator();
         return placer.place(placementSpec, cluster);
     }
 

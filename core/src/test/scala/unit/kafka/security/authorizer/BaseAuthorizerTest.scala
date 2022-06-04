@@ -312,7 +312,7 @@ trait BaseAuthorizerTest {
   }
 
   @Test
-  def testAuthorzeByResourceTypeSuperUserHasAccess(): Unit = {
+  def testAuthorizeByResourceTypeSuperUserHasAccess(): Unit = {
     val denyAllAce = new AccessControlEntry(WildcardPrincipalString, WildcardHost, AclOperation.ALL, DENY)
     val superUser1 = new KafkaPrincipal(KafkaPrincipal.USER_TYPE, superUserName)
     val host1 = InetAddress.getByName("192.0.4.4")

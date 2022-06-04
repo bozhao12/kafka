@@ -54,7 +54,7 @@ object ConsumerPerformance extends LazyLogging {
     var startMs, endMs = 0L
     val consumer = new KafkaConsumer[Array[Byte], Array[Byte]](config.props)
     startMs = System.currentTimeMillis
-    consume(consumer, List(config.topic), config.numMessages, config.recordFetchTimeoutMs, config, totalMessagesRead, totalBytesRead, joinGroupTimeInMs, startMs)
+    consume(consumer, List(config.topic), config.numMessages, config.recordFetchTimeoutMs, config, totalMessagesRead, totalBytesRead, joinGroupTimeInMs)
     endMs = System.currentTimeMillis
 
     if (config.printMetrics) {
@@ -100,8 +100,7 @@ object ConsumerPerformance extends LazyLogging {
               config: ConsumerPerfConfig,
               totalMessagesRead: AtomicLong,
               totalBytesRead: AtomicLong,
-              joinTime: AtomicLong,
-              testStartTime: Long): Unit = {
+              joinTime: AtomicLong): Unit = {
     var bytesRead = 0L
     var messagesRead = 0L
     var lastBytesRead = 0L

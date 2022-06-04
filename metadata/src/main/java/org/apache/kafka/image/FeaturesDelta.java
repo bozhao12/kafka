@@ -74,19 +74,15 @@ public final class FeaturesDelta {
         for (Entry<String, Short> entry : image.finalizedVersions().entrySet()) {
             String name = entry.getKey();
             Optional<Short> change = changes.get(name);
-            if (change == null) {
+            if (!change.isPresent()) {
                 newFinalizedVersions.put(name, entry.getValue());
-            } else if (change.isPresent()) {
-                newFinalizedVersions.put(name, change.get());
-            }
+            } else change.ifPresent(aShort -> newFinalizedVersions.put(name, aShort));
         }
         for (Entry<String, Optional<Short>> entry : changes.entrySet()) {
             String name = entry.getKey();
             Optional<Short> change = entry.getValue();
             if (!newFinalizedVersions.containsKey(name)) {
-                if (change.isPresent()) {
-                    newFinalizedVersions.put(name, change.get());
-                }
+                change.ifPresent(aShort -> newFinalizedVersions.put(name, aShort));
             }
         }
 

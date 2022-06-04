@@ -168,7 +168,7 @@ class DumpLogSegmentsTest {
       val totalRecords = batches.map(_.records.size).sum
       var offset = 0
       val batchIterator = batches.iterator
-      var batch : BatchInfo = null;
+      var batch : BatchInfo = null
       (0 until totalRecords + batches.size).foreach { index =>
         val line = lines(lines.length - totalRecords - batches.size + index)
         // The base offset of the batch is the offset of the first record in the batch, so we

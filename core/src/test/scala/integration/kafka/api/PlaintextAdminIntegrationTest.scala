@@ -2331,7 +2331,7 @@ class PlaintextAdminIntegrationTest extends BaseAdminIntegrationTest {
     * 2. Change kafka.controller.KafkaController logger to INFO
     * 3. Unset kafka.controller.KafkaController via AlterConfigOp.OpType.DELETE (resets it to the root logger - TRACE)
     * 4. Change ROOT logger to ERROR
-    * 5. Ensure the kafka.controller.KafkaController logger's level is ERROR (the curent root logger level)
+    * 5. Ensure the kafka.controller.KafkaController logger's level is ERROR (the current root logger level)
     */
   @ParameterizedTest(name = TestInfoUtils.TestWithParameterizedQuorumName)
   @ValueSource(strings = Array("zk", "kraft"))
@@ -2494,7 +2494,7 @@ class PlaintextAdminIntegrationTest extends BaseAdminIntegrationTest {
     val alterMap = new util.HashMap[ConfigResource, util.Collection[AlterConfigOp]]
     alterMap.put(new ConfigResource(ConfigResource.Type.BROKER, ""), util.Arrays.asList(
       new AlterConfigOp(new ConfigEntry(KafkaConfig.LogRetentionTimeMillisProp, "10800000"), OpType.SET)))
-    (brokers.map(_.config) ++ controllerServers.map(_.config)).foreach { case config =>
+    (brokers.map(_.config) ++ controllerServers.map(_.config)).foreach { config =>
       alterMap.put(new ConfigResource(ConfigResource.Type.BROKER, config.nodeId.toString()),
         util.Arrays.asList(new AlterConfigOp(new ConfigEntry(
           KafkaConfig.LogCleanerDeleteRetentionMsProp, "34"), OpType.SET)))

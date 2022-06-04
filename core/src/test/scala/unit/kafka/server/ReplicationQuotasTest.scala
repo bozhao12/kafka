@@ -25,7 +25,6 @@ import kafka.server.QuotaType._
 import kafka.utils.TestUtils._
 import kafka.utils.CoreUtils._
 import kafka.utils.TestUtils
-import kafka.server.QuorumTestHarness
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.kafka.common.TopicPartition
 import org.junit.jupiter.api.Assertions._

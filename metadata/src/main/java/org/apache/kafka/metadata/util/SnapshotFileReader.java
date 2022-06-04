@@ -117,8 +117,7 @@ public final class SnapshotFileReader implements AutoCloseable {
     }
 
     private void handleControlBatch(FileChannelRecordBatch batch) {
-        for (Iterator<Record> iter = batch.iterator(); iter.hasNext(); ) {
-            Record record = iter.next();
+        for (Record record : batch) {
             try {
                 short typeId = ControlRecordType.parseTypeId(record.key());
                 ControlRecordType type = ControlRecordType.fromTypeId(typeId);
@@ -127,13 +126,13 @@ public final class SnapshotFileReader implements AutoCloseable {
                         LeaderChangeMessage message = new LeaderChangeMessage();
                         message.read(new ByteBufferAccessor(record.value()), (short) 0);
                         listener.handleLeaderChange(new LeaderAndEpoch(
-                            OptionalInt.of(message.leaderId()),
-                            batch.partitionLeaderEpoch()
+                                OptionalInt.of(message.leaderId()),
+                                batch.partitionLeaderEpoch()
                         ));
                         break;
                     default:
                         log.error("Ignoring control record with type {} at offset {}",
-                            type, record.offset());
+                                type, record.offset());
                 }
             } catch (Throwable e) {
                 log.error("unable to read control record at offset {}", record.offset(), e);

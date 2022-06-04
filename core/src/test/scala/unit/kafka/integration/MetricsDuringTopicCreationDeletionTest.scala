@@ -113,7 +113,7 @@ class MetricsDuringTopicCreationDeletionTest extends KafkaServerTestHarness with
     createDeleteTopics()
 
     // if the thread checking the gauge is still run, stop it
-    running = false;
+    running = false
     thread.join
 
     assert(offlinePartitionsCount==0, s"Expect offlinePartitionsCount to be 0, but got: $offlinePartitionsCount")

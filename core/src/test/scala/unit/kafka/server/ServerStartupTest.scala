@@ -18,7 +18,6 @@
 package kafka.server
 
 import kafka.utils.TestUtils
-import kafka.server.QuorumTestHarness
 import org.apache.kafka.common.KafkaException
 import org.apache.kafka.metadata.BrokerState
 import org.apache.zookeeper.KeeperException.NodeExistsException

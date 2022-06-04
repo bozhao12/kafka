@@ -52,7 +52,7 @@ object ZooKeeperClient {
  * @param connectionTimeoutMs connection timeout in milliseconds
  * @param maxInFlightRequests maximum number of unacknowledged requests the client will send before blocking.
  * @param name name of the client instance
- * @param zkClientConfig ZooKeeper client configuration, for TLS configs if desired
+ * @param clientConfig ZooKeeper client configuration, for TLS configs if desired
  */
 class ZooKeeperClient(connectString: String,
                       sessionTimeoutMs: Int,
@@ -361,7 +361,7 @@ class ZooKeeperClient(connectString: String,
   private def reinitialize(): Unit = {
     // Initialization callbacks are invoked outside of the lock to avoid deadlock potential since their completion
     // may require additional Zookeeper requests, which will block to acquire the initialization lock
-    stateChangeHandlers.values.foreach(callBeforeInitializingSession _)
+    stateChangeHandlers.values.foreach(callBeforeInitializingSession)
 
     inWriteLock(initializationLock) {
       if (!connectionState.isAlive) {

@@ -588,7 +588,7 @@ class PlaintextConsumerTest extends BaseConsumerTest {
     assertEquals(mid, consumer.position(tp))
 
     consumeAndVerifyRecords(consumer, numRecords = 1, startingOffset = mid.toInt, startingKeyAndValueIndex = mid.toInt,
-      startingTimestamp = mid.toLong)
+      startingTimestamp = mid)
 
     // Test seek compressed message
     sendCompressedMessages(totalRecords.toInt, tp2)
@@ -605,7 +605,7 @@ class PlaintextConsumerTest extends BaseConsumerTest {
     consumer.seek(tp2, mid)
     assertEquals(mid, consumer.position(tp2))
     consumeAndVerifyRecords(consumer, numRecords = 1, startingOffset = mid.toInt, startingKeyAndValueIndex = mid.toInt,
-      startingTimestamp = mid.toLong, tp = tp2)
+      startingTimestamp = mid, tp = tp2)
   }
 
   private def sendCompressedMessages(numRecords: Int, tp: TopicPartition): Unit = {

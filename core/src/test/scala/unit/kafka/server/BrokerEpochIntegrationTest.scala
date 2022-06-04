@@ -24,7 +24,6 @@ import kafka.cluster.Broker
 import kafka.controller.{ControllerChannelManager, ControllerContext, StateChangeLogger}
 import kafka.utils.TestUtils
 import kafka.utils.TestUtils.createTopic
-import kafka.server.QuorumTestHarness
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.message.LeaderAndIsrRequestData.LeaderAndIsrPartitionState
 import org.apache.kafka.common.message.StopReplicaRequestData.{StopReplicaPartitionState, StopReplicaTopicState}

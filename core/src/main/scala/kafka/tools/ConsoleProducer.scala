@@ -43,7 +43,7 @@ object ConsoleProducer {
 
         val producer = new KafkaProducer[Array[Byte], Array[Byte]](producerProps(config))
 
-    Exit.addShutdownHook("producer-shutdown-hook", producer.close)
+    Exit.addShutdownHook("producer-shutdown-hook", producer.close())
 
         var record: ProducerRecord[Array[Byte], Array[Byte]] = null
         do {
@@ -286,7 +286,7 @@ object ConsoleProducer {
   }
 
   class LineMessageReader extends MessageReader {
-    var topic: String = null
+    var topic: Option[String] = None
     var reader: BufferedReader = null
     var parseKey = false
     var keySeparator = "\t"

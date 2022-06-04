@@ -116,7 +116,7 @@ public class StandardAuthorizer implements ClusterMetadataAuthorizer {
         Map<Endpoint, CompletableFuture<Void>> result = new HashMap<>();
         for (Endpoint endpoint : serverInfo.endpoints()) {
             if (serverInfo.earlyStartListeners().contains(
-                    endpoint.listenerName().orElseGet(() -> ""))) {
+                    endpoint.listenerName().orElse(""))) {
                 result.put(endpoint, CompletableFuture.completedFuture(null));
             } else {
                 result.put(endpoint, initialLoadFuture);
@@ -196,6 +196,6 @@ public class StandardAuthorizer implements ClusterMetadataAuthorizer {
     static AuthorizationResult getDefaultResult(Map<String, ?> configs) {
         Object configValue = configs.get(ALLOW_EVERYONE_IF_NO_ACL_IS_FOUND_CONFIG);
         if (configValue == null) return DENIED;
-        return Boolean.valueOf(configValue.toString()) ? ALLOWED : DENIED;
+        return Boolean.parseBoolean(configValue.toString()) ? ALLOWED : DENIED;
     }
 }

@@ -101,7 +101,7 @@ class TopicIdWithOldInterBrokerProtocolTest extends BaseRequestTest {
     assertEquals(Errors.NONE, resp.error())
 
     val responseData = resp.responseData(topicNames.asJava, 12)
-    assertEquals(Errors.NONE.code, responseData.get(tp0).errorCode);
+    assertEquals(Errors.NONE.code, responseData.get(tp0).errorCode)
   }
 
   @Test

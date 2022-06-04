@@ -113,7 +113,7 @@ object ClusterTool extends Logging {
       stream.println(s"Broker ${id} is no longer registered.")
     } catch {
       case e: ExecutionException => {
-        val cause = e.getCause()
+        val cause = e.getCause
         if (cause.isInstanceOf[UnsupportedVersionException]) {
           stream.println(s"The target cluster does not support the broker unregistration API.")
         } else {

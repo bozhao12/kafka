@@ -1202,9 +1202,7 @@ public class RaftEventSimulationTest {
             if (!filters.get(inflightRequest.sourceId).acceptInbound(inbound))
                 return;
 
-            cluster.nodeIfRunning(inflightRequest.sourceId).ifPresent(node -> {
-                node.channel.mockReceive(inbound);
-            });
+            cluster.nodeIfRunning(inflightRequest.sourceId).ifPresent(node -> node.channel.mockReceive(inbound));
         }
 
         void filter(int nodeId, NetworkFilter filter) {

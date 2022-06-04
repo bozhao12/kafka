@@ -406,9 +406,7 @@ public class StandardAuthorizerData {
     ) {
         NavigableSet<StandardAcl> tailSet = aclsByResource.tailSet(exemplar, true);
         String resourceName = action.resourcePattern().name();
-        for (Iterator<StandardAcl> iterator = tailSet.iterator();
-             iterator.hasNext(); ) {
-            StandardAcl acl = iterator.next();
+        for (StandardAcl acl : tailSet) {
             if (!acl.resourceType().equals(action.resourcePattern().resourceType())) {
                 // We've stepped outside the section for the resource type we care about and
                 // should stop scanning.
@@ -501,7 +499,7 @@ public class StandardAuthorizerData {
         }
         // Check if the operation field matches. Here we hit a slight complication.
         // ACLs for various operations (READ, WRITE, DELETE, ALTER), "imply" the presence
-        // of DESCRIBE, even if it isn't explictly stated. A similar rule applies to
+        // of DESCRIBE, even if it isn't explicitly stated. A similar rule applies to
         // DESCRIBE_CONFIGS.
         //
         // But this rule only applies to ALLOW ACLs. So for example, a DENY ACL for READ

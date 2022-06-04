@@ -19,7 +19,6 @@ package kafka.server
 
 import org.junit.jupiter.api.Assertions._
 import kafka.utils.TestUtils
-import kafka.server.QuorumTestHarness
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.junit.jupiter.api.{AfterEach, Test}
 

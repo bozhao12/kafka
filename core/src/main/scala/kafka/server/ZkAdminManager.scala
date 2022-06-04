@@ -658,7 +658,7 @@ class ZkAdminManager(val config: KafkaConfig,
     val exactUser = wantExact(userComponent)
     val exactClientId = wantExact(clientIdComponent)
 
-    def wantExcluded(component: Option[ClientQuotaFilterComponent]): Boolean = strict && !component.isDefined
+    def wantExcluded(component: Option[ClientQuotaFilterComponent]): Boolean = strict && component.isEmpty
     val excludeUser = wantExcluded(userComponent)
     val excludeClientId = wantExcluded(clientIdComponent)
 
@@ -696,11 +696,11 @@ class ZkAdminManager(val config: KafkaConfig,
     def matches(nameComponent: Option[ClientQuotaFilterComponent], name: Option[String]): Boolean = nameComponent match {
       case Some(component) =>
         toOption(component.`match`) match {
-          case Some(n) => name.exists(_ == n)
+          case Some(n) => name.contains(n)
           case None => name.isDefined
         }
       case None =>
-        !name.isDefined || !strict
+        name.isEmpty || !strict
     }
 
     (userEntries ++ clientIdEntries ++ bothEntries).flatMap { case ((u, c), p) =>
@@ -800,7 +800,7 @@ class ZkAdminManager(val config: KafkaConfig,
   private val attemptToDescribeUserThatDoesNotExist = "Attempt to describe a user credential that does not exist"
 
   def describeUserScramCredentials(users: Option[Seq[String]]): DescribeUserScramCredentialsResponseData = {
-    val describingAllUsers = !users.isDefined || users.get.isEmpty
+    val describingAllUsers = users.isEmpty || users.get.isEmpty
     val retval = new DescribeUserScramCredentialsResponseData()
     val userResults = mutable.Map[String, DescribeUserScramCredentialsResponseData.DescribeUserScramCredentialsResult]()
 
@@ -951,7 +951,7 @@ class ZkAdminManager(val config: KafkaConfig,
       ).toMap ++ illegalUpsertions.map(requestStatus =>
         if (requestStatus.user.isEmpty) {
           (requestStatus.user, usernameMustNotBeEmptyMsg)
-        } else if (requestStatus.mechanism == Some(ScramMechanism.UNKNOWN)) {
+        } else if (requestStatus.mechanism.contains(ScramMechanism.UNKNOWN)) {
           (requestStatus.user, unknownScramMechanismMsg)
         } else {
           (requestStatus.user, if (requestStatus.iterations > maxIterations) {tooManyIterationsMsg} else {tooFewIterationsMsg})

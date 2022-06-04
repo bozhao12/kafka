@@ -61,7 +61,7 @@ class BrokerLifecycleManagerTest {
 
     override def listenerName: ListenerName = new ListenerName("PLAINTEXT")
 
-    override def securityProtocol: SecurityProtocol = SecurityProtocol.PLAINTEXT;
+    override def securityProtocol: SecurityProtocol = SecurityProtocol.PLAINTEXT
 
     override def saslMechanism: String = SaslConfigs.DEFAULT_SASL_MECHANISM
   }

@@ -485,7 +485,7 @@ class KafkaZkClient private[zk] (zooKeeperClient: ZooKeeperClient, isSecure: Boo
   /**
    * Adds a topic ID to existing topic and replica assignments
    * @param topicIdReplicaAssignments the TopicIDReplicaAssignments to add a topic ID to
-   * @return the updated TopicIdReplicaAssigments including the newly created topic IDs
+   * @return the updated TopicIdReplicaAssignments including the newly created topic IDs
    */
   def setTopicIds(topicIdReplicaAssignments: collection.Set[TopicIdReplicaAssignment],
                   expectedControllerEpochZkVersion: Int): Set[TopicIdReplicaAssignment] = {
@@ -1615,7 +1615,7 @@ class KafkaZkClient private[zk] (zooKeeperClient: ZooKeeperClient, isSecure: Boo
     * Pre-create top level paths in ZK if needed.
     */
   def createTopLevelPaths(): Unit = {
-    ZkData.PersistentZkPaths.foreach(makeSurePersistentPathExists(_))
+    ZkData.PersistentZkPaths.foreach(makeSurePersistentPathExists)
   }
 
   /**

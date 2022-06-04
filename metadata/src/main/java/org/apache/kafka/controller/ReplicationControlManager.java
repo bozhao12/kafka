@@ -341,7 +341,7 @@ public class ReplicationControlManager {
      * Since we reject topic creations that would collide, under normal conditions the
      * sets in this map should only have a size of 1. However, if the cluster was
      * upgraded from a version prior to KAFKA-13743, it may be possible to have more
-     * values here, since collidiing topic names will be "grandfathered in."
+     * values here, since colliding topic names will be "grandfathered in."
      */
     private final TimelineHashMap<String, TimelineHashSet<String>> topicsWithCollisionChars;
 
@@ -621,10 +621,10 @@ public class ReplicationControlManager {
             resultsPrefix = ", ";
         }
         if (request.validateOnly()) {
-            log.info("Validate-only CreateTopics result(s): {}", resultsBuilder.toString());
+            log.info("Validate-only CreateTopics result(s): {}", resultsBuilder);
             return ControllerResult.atomicOf(Collections.emptyList(), data);
         } else {
-            log.info("CreateTopics result(s): {}", resultsBuilder.toString());
+            log.info("CreateTopics result(s): {}", resultsBuilder);
             return ControllerResult.atomicOf(records, data);
         }
     }
@@ -668,8 +668,8 @@ public class ReplicationControlManager {
             }
             ApiError error = maybeCheckCreateTopicPolicy(() -> {
                 Map<Integer, List<Integer>> assignments = new HashMap<>();
-                newParts.entrySet().forEach(e -> assignments.put(e.getKey(),
-                    Replicas.toList(e.getValue().replicas)));
+                newParts.forEach((key, value) -> assignments.put(key,
+                        Replicas.toList(value.replicas)));
                 return new CreateTopicPolicy.RequestMetadata(
                     topic.name(), null, null, assignments, creationConfigs);
             });
@@ -1203,7 +1203,7 @@ public class ReplicationControlManager {
     /**
      * Generate the appropriate records to handle a broker becoming unfenced.
      *
-     * First, we create an UnfenceBrokerRecord. Then, we check if there are any
+     * First, we create an UnfencedBrokerRecord. Then, we check if if there are any
      * partitions that don't currently have a leader that should be led by the newly
      * unfenced broker.
      *
@@ -1417,7 +1417,7 @@ public class ReplicationControlManager {
      * Attempt to elect a preferred leader for all topic partitions which have a leader that is not the preferred replica.
      *
      * The response() method in the return object is true if this method returned without electing all possible preferred replicas.
-     * The quorum controlller should reschedule this operation immediately if it is true.
+     * The quorum controller should reschedule this operation immediately if it is true.
      *
      * @return All of the election records and if there may be more available preferred replicas to elect as leader
      */
@@ -1680,7 +1680,7 @@ public class ReplicationControlManager {
                         append(record.partitionId());
                     prefix = ", ";
                 }
-                log.debug("{}: changing partition(s): {}", context, bld.toString());
+                log.debug("{}: changing partition(s): {}", context, bld);
             } else if (log.isInfoEnabled()) {
                 log.info("{}: changing {} partition(s)", context, records.size() - oldSize);
             }
@@ -1862,9 +1862,7 @@ public class ReplicationControlManager {
         for (int partitionId : partitionIds) {
             Optional<OngoingPartitionReassignment> ongoing =
                 getOngoingPartitionReassignment(topicInfo, partitionId);
-            if (ongoing.isPresent()) {
-                ongoingTopic.partitions().add(ongoing.get());
-            }
+            ongoing.ifPresent(ongoingPartitionReassignment -> ongoingTopic.partitions().add(ongoingPartitionReassignment));
         }
         if (!ongoingTopic.partitions().isEmpty()) {
             response.topics().add(ongoingTopic);

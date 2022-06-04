@@ -17,13 +17,12 @@
 
 package org.apache.kafka.timeline;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.HashSet;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @Timeout(value = 40)
 public class BaseHashTableTest {
@@ -32,7 +31,7 @@ public class BaseHashTableTest {
     public void testEmptyTable() {
         BaseHashTable<Integer> table = new BaseHashTable<>(0);
         assertEquals(0, table.baseSize());
-        assertEquals(null, table.baseGet(Integer.valueOf(1)));
+        assertNull(table.baseGet(Integer.valueOf(1)));
     }
 
     @Test
@@ -57,17 +56,17 @@ public class BaseHashTableTest {
         Integer two = Integer.valueOf(2);
         Integer three = Integer.valueOf(3);
         Integer four = Integer.valueOf(4);
-        assertEquals(null, table.baseAddOrReplace(one));
-        assertEquals(null, table.baseAddOrReplace(two));
-        assertEquals(null, table.baseAddOrReplace(three));
+        assertNull(table.baseAddOrReplace(one));
+        assertNull(table.baseAddOrReplace(two));
+        assertNull(table.baseAddOrReplace(three));
         assertEquals(3, table.baseSize());
         assertEquals(one, table.baseGet(one));
         assertEquals(two, table.baseGet(two));
         assertEquals(three, table.baseGet(three));
-        assertEquals(null, table.baseGet(four));
+        assertNull(table.baseGet(four));
         assertEquals(one, table.baseRemove(one));
         assertEquals(2, table.baseSize());
-        assertEquals(null, table.baseGet(one));
+        assertNull(table.baseGet(one));
         assertEquals(2, table.baseSize());
     }
 

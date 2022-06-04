@@ -67,7 +67,7 @@ class ControllerChannelManager(controllerContext: ControllerContext,
     }
   )
 
-  def startup() = {
+  def startup(): Unit = {
     controllerContext.liveOrShuttingDownBrokers.foreach(addNewBroker)
 
     brokerLock synchronized {
@@ -75,7 +75,7 @@ class ControllerChannelManager(controllerContext: ControllerContext,
     }
   }
 
-  def shutdown() = {
+  def shutdown(): Unit = {
     brokerLock synchronized {
       brokerStateInfo.values.toList.foreach(removeExistingBroker)
     }

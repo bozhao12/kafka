@@ -1691,7 +1691,7 @@ class KafkaConfig private(doLog: Boolean, val props: java.util.Map[_, _], dynami
     Option(getString(KafkaConfig.EarlyStartListenersProp)) match {
       case None => controllerListenersSet
       case Some(str) =>
-        str.split(",").map(_.trim()).filter(!_.isEmpty).map { str =>
+        str.split(",").map(_.trim()).filter(_.nonEmpty).map { str =>
           val listenerName = new ListenerName(str)
           if (!listenersSet.contains(listenerName) && !controllerListenersSet.contains(listenerName))
             throw new ConfigException(s"${KafkaConfig.EarlyStartListenersProp} contains " +
@@ -2236,11 +2236,11 @@ class KafkaConfig private(doLog: Boolean, val props: java.util.Map[_, _], dynami
       s"${KafkaConfig.QueuedMaxBytesProp} must be larger or equal to ${KafkaConfig.SocketRequestMaxBytesProp}")
 
     if (maxConnectionsPerIp == 0)
-      require(!maxConnectionsPerIpOverrides.isEmpty, s"${KafkaConfig.MaxConnectionsPerIpProp} can be set to zero only if" +
+      require(maxConnectionsPerIpOverrides.nonEmpty, s"${KafkaConfig.MaxConnectionsPerIpProp} can be set to zero only if" +
         s" ${KafkaConfig.MaxConnectionsPerIpOverridesProp} property is set.")
 
     val invalidAddresses = maxConnectionsPerIpOverrides.keys.filterNot(address => Utils.validHostPattern(address))
-    if (!invalidAddresses.isEmpty)
+    if (invalidAddresses.nonEmpty)
       throw new IllegalArgumentException(s"${KafkaConfig.MaxConnectionsPerIpOverridesProp} contains invalid addresses : ${invalidAddresses.mkString(",")}")
 
     if (connectionsMaxIdleMs >= 0)

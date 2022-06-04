@@ -482,10 +482,8 @@ class BatchAccumulatorTest {
         List<BatchAccumulator.CompletedBatch<String>> drained = acc.drain();
         assertEquals(1, drained.size());
         assertEquals(Long.MAX_VALUE - time.milliseconds(), acc.timeUntilDrain(time.milliseconds()));
-        drained.stream().forEach(completedBatch -> {
-            completedBatch.data.batches().forEach(recordBatch -> {
-                assertEquals(leaderEpoch, recordBatch.partitionLeaderEpoch()); });
-        });
+        drained.forEach(completedBatch -> completedBatch.data.batches().forEach(recordBatch -> {
+            assertEquals(leaderEpoch, recordBatch.partitionLeaderEpoch()); }));
     }
 
     int recordSizeInBytes(String record, int numberOfRecords) {
@@ -502,21 +500,11 @@ class BatchAccumulatorTest {
         return ByteUtils.sizeOfVarint(recordSizeInBytes) + recordSizeInBytes;
     }
 
-    static interface Appender {
+    interface Appender {
         Long call(BatchAccumulator<String> acc, int epoch, List<String> records);
     }
 
-    static final Appender APPEND_ATOMIC = new Appender() {
-        @Override
-        public Long call(BatchAccumulator<String> acc, int epoch, List<String> records) {
-            return acc.appendAtomic(epoch, records);
-        }
-    };
+    static final Appender APPEND_ATOMIC = (acc, epoch, records) -> acc.appendAtomic(epoch, records);
 
-    static final Appender APPEND = new Appender() {
-        @Override
-        public Long call(BatchAccumulator<String> acc, int epoch, List<String> records) {
-            return acc.append(epoch, records);
-        }
-    };
+    static final Appender APPEND = (acc, epoch, records) -> acc.append(epoch, records);
 }

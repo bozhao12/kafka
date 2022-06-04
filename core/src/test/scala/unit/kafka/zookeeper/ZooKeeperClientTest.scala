@@ -254,7 +254,7 @@ class ZooKeeperClientTest extends QuorumTestHarness {
       "Response code for getData should be OK"))
     getDataResponses.zipWithIndex.foreach { case (getDataResponse, i) =>
       assertEquals(Code.OK, getDataResponse.resultCode, "Response code for getData should be OK")
-      assertEquals(((i + 1) * 2), Integer.valueOf(new String(getDataResponse.data)), "Data for getData should match")
+      assertEquals((i + 1) * 2, Integer.valueOf(new String(getDataResponse.data)), "Data for getData should match")
     }
   }
 

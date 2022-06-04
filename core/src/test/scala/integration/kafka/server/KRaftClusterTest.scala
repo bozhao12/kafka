@@ -640,8 +640,8 @@ class KRaftClusterTest {
               new AlterConfigOp(new ConfigEntry(log2.getName(), "TRACE"), OpType.SUBTRACT))))))
 
         validateConfigs(admin, Map(broker2 -> Seq(
-          (log.getName(), initialLog4j.get(broker2).get.get(log.getName())),
-          (log2.getName(), initialLog4j.get(broker2).get.get(log2.getName())))))
+          (log.getName(), initialLog4j(broker2).get(log.getName())),
+          (log2.getName(), initialLog4j(broker2).get(log2.getName())))))
       } finally {
         admin.close()
       }

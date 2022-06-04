@@ -123,7 +123,7 @@ object ConsoleConsumer extends Logging {
             throw e
           }
       }
-      if (checkErr(output, formatter)) {
+      if (checkErr(output)) {
         // Consumer will be closed
         return
       }
@@ -134,7 +134,7 @@ object ConsoleConsumer extends Logging {
     System.err.println(s"Processed a total of $messageCount messages")
   }
 
-  def checkErr(output: PrintStream, formatter: MessageFormatter): Boolean = {
+  def checkErr(output: PrintStream): Boolean = {
     val gotError = output.checkError()
     if (gotError) {
       // This means no one is listening to our output stream anymore, time to shutdown

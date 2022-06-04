@@ -94,7 +94,7 @@ public final class RecordsIterator<T> implements Iterator<Batch<T>>, AutoCloseab
 
     private void ensureOpen() {
         if (isClosed) {
-            throw new IllegalStateException("Serde record batch itererator was closed");
+            throw new IllegalStateException("Serde record batch iterator was closed");
         }
     }
 

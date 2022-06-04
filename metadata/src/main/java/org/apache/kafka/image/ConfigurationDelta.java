@@ -59,11 +59,9 @@ public final class ConfigurationDelta {
         Map<String, String> newData = new HashMap<>(image.data().size());
         for (Entry<String, String> entry : image.data().entrySet()) {
             Optional<String> change = changes.get(entry.getKey());
-            if (change == null) {
+            if (!change.isPresent()) {
                 newData.put(entry.getKey(), entry.getValue());
-            } else if (change.isPresent()) {
-                newData.put(entry.getKey(), change.get());
-            }
+            } else change.ifPresent(s -> newData.put(entry.getKey(), s));
         }
         for (Entry<String, Optional<String>> entry : changes.entrySet()) {
             if (!newData.containsKey(entry.getKey())) {

@@ -51,7 +51,7 @@ public class KafkaRaftMetricsTest {
     private final Random random = new Random(1);
     private KafkaRaftMetrics raftMetrics;
 
-    private BatchAccumulator<?> accumulator = Mockito.mock(BatchAccumulator.class);
+    private final BatchAccumulator<?> accumulator = Mockito.mock(BatchAccumulator.class);
 
     @AfterEach
     public void tearDown() {

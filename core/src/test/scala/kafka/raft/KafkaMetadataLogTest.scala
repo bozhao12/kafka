@@ -633,7 +633,7 @@ final class KafkaMetadataLogTest {
       snapshot.freeze()
     }
     // Simulate log cleaning advancing the LSO
-    log.log.maybeIncrementLogStartOffset(offset, SegmentDeletion);
+    log.log.maybeIncrementLogStartOffset(offset, SegmentDeletion)
 
     val resultOffsetAndEpoch = log.validateOffsetAndEpoch(offset - 1, epoch)
     assertEquals(ValidOffsetAndEpoch.Kind.SNAPSHOT, resultOffsetAndEpoch.kind)

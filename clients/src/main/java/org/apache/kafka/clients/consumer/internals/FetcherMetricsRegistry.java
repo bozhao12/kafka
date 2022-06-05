@@ -61,7 +61,7 @@ public class FetcherMetricsRegistry {
     }
 
     public FetcherMetricsRegistry(String metricGrpPrefix) {
-        this(new HashSet<String>(), metricGrpPrefix);
+        this(new HashSet<>(), metricGrpPrefix);
     }
 
     public FetcherMetricsRegistry(Set<String> tags, String metricGrpPrefix) {

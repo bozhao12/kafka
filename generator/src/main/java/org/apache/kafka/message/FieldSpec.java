@@ -450,7 +450,7 @@ public final class FieldSpec {
                 throw new RuntimeException("Invalid default for struct field " +
                     name + ": custom defaults are not supported for struct fields.");
             }
-            return "new " + type.toString() + "()";
+            return "new " + type + "()";
         } else if (type.isArray()) {
             if (fieldDefault.equals("null")) {
                 validateNullDefault();

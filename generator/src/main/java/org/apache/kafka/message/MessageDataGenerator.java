@@ -552,7 +552,7 @@ public final class MessageDataGenerator implements MessageClassGenerator {
         } else if (type instanceof FieldType.Float64FieldType) {
             return "_readable.readDouble()";
         } else if (type.isStruct()) {
-            return String.format("new %s(_readable, _version)", type.toString());
+            return String.format("new %s(_readable, _version)", type);
         } else {
             throw new RuntimeException("Unsupported field type " + type);
         }

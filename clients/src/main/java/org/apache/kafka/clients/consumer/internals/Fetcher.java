@@ -269,7 +269,7 @@ public class Fetcher<K, V> implements Closeable {
                     .rackId(clientRackId);
 
             if (log.isDebugEnabled()) {
-                log.debug("Sending {} {} to broker {}", isolationLevel, data.toString(), fetchTarget);
+                log.debug("Sending {} {} to broker {}", isolationLevel, data, fetchTarget);
             }
             RequestFuture<ClientResponse> future = client.send(fetchTarget, request);
             // We add the node to the set of nodes with pending fetch requests before adding the

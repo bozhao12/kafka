@@ -51,7 +51,7 @@ public class GlobVisitorTest {
 
         @Override
         public void accept(Optional<MetadataNodeInfo> info) {
-            if (infos == null) {
+            if (!infos.isPresent()) {
                 if (info.isPresent()) {
                     infos = Optional.of(new ArrayList<>());
                     infos.get().add(info.get());

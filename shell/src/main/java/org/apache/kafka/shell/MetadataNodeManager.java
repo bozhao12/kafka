@@ -229,7 +229,7 @@ public final class MetadataNodeManager implements AutoCloseable {
                 DirectoryNode topicsDirectory = data.root.mkdirs("topics");
                 DirectoryNode topicDirectory = topicsDirectory.mkdirs(record.name());
                 topicDirectory.create("id").setContents(record.topicId().toString());
-                topicDirectory.create("name").setContents(record.name().toString());
+                topicDirectory.create("name").setContents(record.name());
                 DirectoryNode topicIdsDirectory = data.root.mkdirs("topicIds");
                 topicIdsDirectory.addChild(record.topicId().toString(), topicDirectory);
                 break;

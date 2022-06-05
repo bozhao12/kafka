@@ -426,7 +426,7 @@ public class Selector implements Selectable, AutoCloseable {
      * buffers. If there are channels with buffered data that can by processed, we set "timeout" to 0 and process the data even
      * if there is no more data to read from the socket.
      *
-     * Atmost one entry is added to "completedReceives" for a channel in each poll. This is necessary to guarantee that
+     * Almost one entry is added to "completedReceives" for a channel in each poll. This is necessary to guarantee that
      * requests from a channel are processed on the broker in the order they are sent. Since outstanding requests added
      * by SocketServer to the request queue may be processed by different request handler threads, requests on each
      * channel must be processed one-at-a-time to guarantee ordering.
@@ -1276,7 +1276,7 @@ public class Selector implements Selectable, AutoCloseable {
 
         /**
          * This method generates `time-total` metrics but has a couple of deficiencies: no `-ns` suffix and no dash between basename
-         * and `time-toal` suffix.
+         * and `time-total` suffix.
          * @deprecated use {{@link #createIOThreadRatioMeter(Metrics, String, Map, String, String)}} for new metrics instead
          */
         @Deprecated

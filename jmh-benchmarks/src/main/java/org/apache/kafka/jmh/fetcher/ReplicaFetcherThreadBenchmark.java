@@ -118,7 +118,7 @@ public class ReplicaFetcherThreadBenchmark {
     private LogManager logManager;
     private File logDir = new File(System.getProperty("java.io.tmpdir"), UUID.randomUUID().toString());
     private KafkaScheduler scheduler = new KafkaScheduler(1, "scheduler", true);
-    private Pool<TopicPartition, Partition> pool = new Pool<TopicPartition, Partition>(Option.empty());
+    private Pool<TopicPartition, Partition> pool = new Pool<>(Option.empty());
     private Metrics metrics = new Metrics();
     private ReplicaManager replicaManager;
     private ReplicaQuota replicaQuota;

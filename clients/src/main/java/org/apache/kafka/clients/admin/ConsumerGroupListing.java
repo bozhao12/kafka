@@ -105,7 +105,7 @@ public class ConsumerGroupListing {
         if (isSimpleConsumerGroup != other.isSimpleConsumerGroup)
             return false;
         if (state == null) {
-            if (other.state != null)
+            if (other.state.isPresent())
                 return false;
         } else if (!state.equals(other.state))
             return false;

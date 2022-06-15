@@ -343,8 +343,6 @@ public final class QuorumController implements Controller {
         @Override
         public void accept(ConfigResource configResource) {
             switch (configResource.type()) {
-                case BROKER_LOGGER:
-                    break;
                 case BROKER:
                     // Cluster configs are always allowed.
                     if (configResource.name().isEmpty()) break;

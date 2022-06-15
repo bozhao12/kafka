@@ -607,7 +607,7 @@ public class VerifiableConsumer implements Closeable, OffsetCommitCallback, Cons
 
         boolean useAutoCommit = res.getBoolean("useAutoCommit");
         String configFile = res.getString("consumer.config");
-        String brokerHostandPort = null;
+        String brokerHostAndPort = null;
 
         Properties consumerProps = new Properties();
         if (configFile != null) {
@@ -627,15 +627,15 @@ public class VerifiableConsumer implements Closeable, OffsetCommitCallback, Cons
 
 
         if (res.get("bootstrapServer") != null) {
-            brokerHostandPort = res.getString("bootstrapServer");
+            brokerHostAndPort = res.getString("bootstrapServer");
         } else if (res.getString("brokerList") != null) {
-            brokerHostandPort = res.getString("brokerList");
+            brokerHostAndPort = res.getString("brokerList");
         } else {
             parser.printHelp();
             // Can't use `Exit.exit` here because it didn't exist until 0.11.0.0.
             System.exit(0);
         }
-        consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, brokerHostandPort);
+        consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, brokerHostAndPort);
 
         consumerProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, useAutoCommit);
         consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, res.getString("resetPolicy"));
